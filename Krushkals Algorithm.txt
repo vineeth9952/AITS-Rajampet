@@ -95,7 +95,7 @@ class Graph
 	    			cout << x << " -- " << y << " == " << w << endl; 
 	    		} 
 	    	} 
-	   // 	cout << "Minimum Cost Spanning Tree: " << ans; 
+	    	cout << "Minimum Cost Spanning Tree: " << ans; 
 	    } 
 }; 
  
