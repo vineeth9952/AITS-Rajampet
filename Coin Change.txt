@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void coinChange(vector<int>& coins, int amount) 
+{
+    // Sort coins in descending order
+    sort(coins.rbegin(), coins.rend());
+
+    vector<int> result;
+    for (int i = 0; i < coins.size(); ++i) 
+    {
+        while (amount >= coins[i]) 
+        {
+            amount -= coins[i];
+            result.push_back(coins[i]);
+        }
+    }
+
+    if (amount != 0) 
+    {
+        cout << "The amount cannot be made with the given denominations." << endl;
+    } 
+    else 
+    {
+        cout << "Coins used to make the amount: ";
+        for (int coin : result) 
+        {
+            cout << coin << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main() 
+{
+    vector<int> coins = {1, 2, 5, 10, 20, 50, 100, 200};
+    int amount = 59;
+
+    coinChange(coins, amount);
+
+    return 0;
+}

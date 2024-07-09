@@ -1,0 +1,67 @@
+//Fractional Knapsack
+#include <bits/stdc++.h>
+using namespace std;
+
+bool compareObjects(const pair<int, double> &a, const pair<int, double> &b) 
+{
+    return a.second > b.second;
+}
+
+double fractionalKnapsack(int capacity, vector<int> &weights, vector<int> &profits) 
+{
+    int n = weights.size();
+    vector<pair<int, double>> valuePerUnit(n);
+
+    for (int i = 0; i < n; ++i) 
+    {
+        valuePerUnit[i] = {i, (double)profits[i] / weights[i]};
+    }
+
+    sort(valuePerUnit.begin(), valuePerUnit.end(), compareObjects);
+
+    double totalprofit = 0.0;
+    int currentWeight = 0;
+    for (const auto &object : valuePerUnit) 
+    {
+        int idx = object.first;
+        if (currentWeight + weights[idx] <= capacity) 
+        {
+            // If the whole object can be added
+            totalprofit += profits[idx];
+            currentWeight += weights[idx];
+        } 
+        else 
+        {
+            // If only a fraction of the object can be added
+            int remainingCapacity = capacity - currentWeight;
+            totalprofit += object.second * remainingCapacity;
+            break; // No more objects can be added
+        }
+    }
+
+    return totalprofit;
+}
+
+int main() 
+{
+    int capacity;
+    cout << "Enter the capacity of the knapsack: ";
+    cin >> capacity;
+
+    int n;
+    cout << "Enter the number of objects: ";
+    cin >> n;
+
+    vector<int> weights(n), profits(n);
+    cout << "Enter weight and value for each object:\n";
+    for (int i = 0; i < n; ++i) 
+    {
+        cin >> weights[i] >> profits[i];
+    }
+
+    double maxValue = fractionalKnapsack(capacity, weights, profits);
+
+    cout << "The maximum value that can be obtained is: " << maxValue << endl;
+
+    return 0;
+}

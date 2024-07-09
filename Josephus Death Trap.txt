@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+int JosephusDeathTrap(int n, int k) 
+{
+    if (n == 1)
+        return 1;
+
+    return (JosephusDeathTrap(n - 1, k) + k - 1) % n + 1;
+}
+
+int main() 
+{
+    int n = 5; // Number of people in the circle
+    int k = 3; // Every k-th person is eliminated
+
+    cout << "The position of the last person standing is: " << JosephusDeathTrap(n, k) << endl;
+
+    return 0;
+}
